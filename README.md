@@ -1,6 +1,71 @@
 # Catalog Application - catalog.py
 Code for catalog project assignment
 
+#New section for LightSail documentation
+
+#Server & App info:
+IP address: 54.236.38.136
+SSH Port: 2200
+URL: http://54.236.38.136/
+
+#Summary of Software Installed:
+
+1. apache2
+2. libapache2-mod-wsgi
+3. postgresql
+4. git
+5. psycopg2 sqlalchemy
+6. python-pip python-dev build-essential
+7. pip install --upgrade pip
+8. pip install --upgrade virtualenv
+
+#Graders SSH key and passphrase:
+
+passphrase: grader
+
+key:
+
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,DA58202EA242203DF89BB1D8A06B128E
+
+ufEBGR7SLJXkkuniiq/03qOQAeMCuAd2Ihu5DaDSLYFtRszpupDELeuMP8GOxb36
+jGGfJGf7EyruLrbR6hJErB6J6z/+rReGZ5IWZiPMUjbGFQmZvSsgGUdqqBmOXyvH
+QaVDAZHcSqE5UW9jJSH3JcMX/AR08aD/ImGqpNmMsrx50R2LZJ67WP3T4yYsmwc0
+6XZgkxMWRtYb9M7llNuHBaklfUpIbnxE7irJNr1MpoxINONvYkR35LcrdGGLYjdM
+0WssmgkGnCbMHSmOVvBWWqgd/dx2RmEfpGm6ZLPHkoYAgKLeviRKFf55pKbs2BA6
+lWIJ3wQ50UpR00AxDnnG89oRdASe5xldfD6LVNx5aj+LzDKjaLM7gNOPpx2Zfwg9
+scGcE+wdazLbg4owOgNn/bBB9t6kEvWftzQfNWOYRVL/dP2ohp18RmeQOFqmLhVW
+FrH/NJ9T7YJQq0VCs6qlTeWZ7SR24MZGEFWYxTDd2Ho8HJpRV3nAk7njCoVGAAb0
+86qaprydkitbwVnjFcbC8njjP9jW3G6qtWy/42z6PLEb+vbTdt8S+WB2roKZfF8b
+Lmz/1+p6vnW8Ps8SXg2rnoY2OIzYrazMqE27AvdTd4ctVu3PI7E8d3YmWFrk9rZk
+0bZ6eXz0jy8pKPbJGhfT5tZOVdbaqewpb+HEdFyQFSO4+Uw5IxuVBxlVdHFLVSgZ
+xBXUhtNw4nDe0EOOOax9eaVnANQsvB/xjr+xzdiFXWJLL0GKXJBrmrbwOr2j/WHM
+auxnuG1x1y7M02b+4icxCqfTm7pFJkwcYrrYJu47/QE/pH5Q6Fcjnh1Dj/qMnoz5
+UgyYEzlFFBtKl1uRPptX7xJOVaJpMuDRrZkWSKE5vRh1e3fJ03P9pnlDQJILrHkn
+ZSlAE/k27zp8yL3ceHMIKy0QpK8s38sMv23Pqsncc+ac9SOEOkLtN9exiqAwwIM9
+H0m+yzWQv6s7njCRfmcB4o1Yqa7UVSPb2CJjI//ajYnf41Rtlvo1QaCob6Ioi3CT
+Tg3KCNvra/ONmr/kAjRKQv/kJuZSOBhvpbCqpCUuOKBtoxgDpwmEAFKk6bRNz/zj
+R36kBzBxn4OfPygo3lg2hYE0hK1If8Amm6vTMG1/tX0hAkiCLhl7lz3kQ9rfGlSq
+nN+28oW5XIlyXyFQldoszueINlvpGzhQEat44EWJ53P4lN6I3OeIXgwStB+N8B1x
+NZDffkg2CJVvWawLMZwCzr7XgV6t/s/RSBPIVxzB9/xzXV9WNo+YBJ80+9/7JSpN
+/AwfQ+eqelnXBLzZ+qmYM/JNLGGjO1cSIP1/gYNB6OVrd36CXhb6n+UTNHbwpqnB
+JDkzllyEZvoT+qeUGGCTa8SYJEWJ8Cl7M5KE2S6Vc7d7p50TmqwpRE7pQUDjDCXA
+9c0Dis8oXL4uT2XYu0UizhzTOsil12zOKRk1g4ddFtoG89Q7W/QzsUyEGk9GTEnj
+Jgvqrgh1FpmlPP1rA0Drt0ejactgZZD0pWjdrHCqX84D2WDD1tVBPQoSwDkR7voS
+P+ZseJsOCEpoxn+/kSYvnmbvseQWYFLSVUx7ewMURqhYwmPVx+KgxYHHDnY7Dz4t
+-----END RSA PRIVATE KEY-----
+
+
+
+
+
+
+*********************** OLD INFO BELOW ON RUNNING SAME APP IN VAGARANT *********************************
+
+
+
+
 #Prerequisites
 # Installing the Vagrant VM for ud330 - Authentication & Authorization
 
