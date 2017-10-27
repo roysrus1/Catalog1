@@ -1,9 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from catalog_setup import Base, User, Student, Prize
+from sqlalchemy.engine.url import URL
 
-engine = create_engine('sqlite:///studentswithusers.db')
+from catalog_setup import Base, Owner, Student, Prize
+
+url = URL(drivername='postgresql', username='catalog', password='catalog', host='localhost', database='studentswithusers')
+engine = create_engine(url)
+
+
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -20,27 +25,27 @@ session = DBSession()
 
 
 # Create a sample user
-User1 = User(name="Tim Williams", email="tinnyTim@udacity.com")
+User1 = Owner(name="Tim Williams", email="tinnyTim@udacity.com")
 session.add(User1)
 session.commit()
 
 
 #Create students
-Student1 = Student(name="Dan Thomas", user=User1)
+Student1 = Student(name="Dan Thomas", owner=User1)
 session.add(Student1)
 session.commit()
 
-Student2 = Student(name="Lisa Ladio", user=User1)
+Student2 = Student(name="Lisa Ladio", owner=User1)
 session.add(Student2)
 session.commit()
 
 
 # Create Prizes for Students
-Prize1 = Prize(name="Best Debator 2017", description="Best Debator of the graduating senior class", student= Student2, user=User1)
+Prize1 = Prize(name="Best Debator 2017", description="Best Debator of the graduating senior class", student= Student2, owner=User1)
 session.add(Prize1)
 session.commit()
 
-Prize2 = Prize(name="Best Science Award 2017", description="Best Science student of the graduating senior class", student=Student1, user=User1)
+Prize2 = Prize(name="Best Science Award 2017", description="Best Science student of the graduating senior class", student=Student1, owner=User1)
 session.add(Prize2)
 session.commit()
 

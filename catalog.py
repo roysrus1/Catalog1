@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, f
 
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
-from catalog_setup import Base, Student, Prize, User
+from sqlalchemy.engine.url import URL
+from catalog_setup import Base, Student, Prize, Owner
 
 from flask import session as login_session
 import random, string
@@ -18,12 +19,15 @@ from flask import make_response
 import requests
 
 app = Flask(__name__)
+app.secret_key = 'super_secret_key'
 
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open('/var/www/html/Catalog1/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Student Catalog Application"
 
 #Connect to Database and create database session
-engine = create_engine('sqlite:///studentswithusers.db')
+
+url = URL(drivername='postgresql', username='catalog', password='catalog', host='localhost', database='studentswithusers')
+engine = create_engine(url)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -54,7 +58,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/html/Catalog1/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -142,21 +146,21 @@ def login_required(f):
 
 # Create a new user and add to the database
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    newUser = Owner(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
+    user = session.query(Owner).filter_by(email=login_session['email']).one()
     return user.id
 
 # For a given user_id, return the user record
 def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
+    user = session.query(Owner).filter_by(id=user_id).one()
     return user
 
 # For a given user email, return the user record
 def getUserID(email):
     try:
-        user = session.query(User).filter_by(email=email).one()
+        user = session.query(Owner).filter_by(email=email).one()
         return user.id
     except:
         return None
@@ -262,8 +266,8 @@ def showStudents():
 def newStudent():
 
     if request.method == 'POST':
-        owner = session.query(User).filter_by(id=login_session['user_id']).one()
-        newStudent = Student(name=request.form['name'], user=owner)
+        owner = session.query(Owner).filter_by(id=login_session['user_id']).one() 
+        newStudent = Student(name=request.form['name'], owner=owner)
         session.add(newStudent)
         session.commit()
         flash('New Student %s Successfully Created' % newStudent.name)
@@ -354,9 +358,9 @@ def newPrize(student_id):
         return redirect('/student/')
 
     if request.method == 'POST':
-        owner = session.query(User).filter_by(id=login_session['user_id']).one()
+        owner = session.query(Owner).filter_by(id=login_session['user_id']).one()
         newPrize = Prize(name=request.form['name'], description=request.form['description'],
-                         student=student, user=owner)
+                         student=student, owner=owner)
         session.add(newPrize)
         session.commit()
         flash('New Prize %s Item Successfully Created' % (newPrize.name))
@@ -422,5 +426,6 @@ def deletePrize(student_id, prize_id):
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
+    app.config['SESSION_TYPE'] = 'filesystem' 
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
