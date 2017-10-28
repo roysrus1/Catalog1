@@ -19,41 +19,27 @@ URL: http://54.236.38.136/
 7. pip install --upgrade pip
 8. pip install --upgrade virtualenv
 
-#Graders SSH key and passphrase:
+#Summary of configuration changes made:
 
-passphrase: grader
+1. For the python database code in all 3 py files, changed class User to class Owner.  This was because User was a reserved class.
+2. For the python database code in all 3 py files, changed the engine from sqlite to postgres.  The associated URL info also changed.
 
-key:
+3. In the catalog.py code, the app.secret_key had to be defined outside the if _name_ = '_main_' block since this was code was now being called by the wsgi code.
 
------BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEA3qmLojL+QMaNRfZFgH8oAvb90/hTYj80Krj4T9Bqt/Qfq1vG
-CbTJCSp8SOehcRIjQriKRRPnmdgudVmkse02HgT6Mmr3Fk4Sw7gFDBzSORK+Z0NI
-QbjCP/DUPjErIsDExt6TARY5v5/RWNijqfPVFGO+eOPuQbpktR4wohtG3HG2c3hj
-FIdW53k5ng5G95gjnWC2DrzVtQVQcDFjlcfByCVz1/FUVvF6z77FsoYw7ig7slH/
-YZT+9IJrns62t/hedegiRMqUYuRRAPef6XXWXYjWQRScmKfAYyH4WKptstTm357l
-IoBbdj2fj9jKELi0VRtXKWHul+vGJ8XW0mKZuwIDAQABAoIBAHC+KJXYfCUQZDgo
-msiVmgzmQ2AxPQdiOWfogNLpFSBP3DlIHt6LS7/4YzYHExfNt0zxZBHWIk8jx2Jk
-IaB2HBDXNFiTEMmafqXbZ7LaZRfBBegDiXK9up3ls5JKEy1lrj2ENas3NcZxhe8W
-wsgrTpkkaC2OO/XMC3Ip9zYd2aOEfi+IgFSiz/g6ID0kKdMUybCtRFZylo/u92ZA
-oz2r1qHHYOC3JyjLufkzbAPv9KlQxXemvr8Yz3NwF3q1vL6TcWVDwY9HnffE39t7
-3mVLq+yR1/z+R7ja2c6V932yA1CTheJ7RcesXSVmr3HN+jS7Ky3Prw56gJPFuN5s
-Wakn4wECgYEA/wCAjJOQNLvRqWesr80+L4nkmsIx0fQ5M4XJYXfWTk5SUX3F8BJO
-ZhgrCMqbUV5jSO9c+zQsoFaIT6O/x8vz8XKwUxhqfmSrj4hqcp8XX1FGFNOwV0qO
-mJb7G2LsG8iXcy08UCw01Ils+ZWDXRewdGz61lP8cPSdJA0BWrPEZ0UCgYEA34ik
-ByiQJ6PM5fE5i2InXu1KUw/iTgpSGsbrRIl13IklUe9WiE+ZrbxpPJovjyKc14qT
-00C6drcpLS2QW2LhvctDW/yozyWyxao0WjYMX2ibGTJ3PjbffeGB6OeZSERqs7ZT
-dZZe/gY2cXQO+emPx50ejXAbj8u+nONt5V2OjP8CgYB9xX2h2FZT7B8o8t2ViCGX
-yOdb/VQdPdvIsb/1tumYjcDEOMib9Ct+54SyPVwF8gv+OTEfJUitfICW5yj8Hngf
-KnYVRgGgfX6wuJPoHNemR6vNMevT4g4a7LzFcTELMxCf2jvZPzR/b5i0MS4tiDWb
-9vRxKdNk0wF+enukhO3mEQKBgCk9cV2suyPFEZlersorWq4lwy+d35ecSdeM2Xz0
-i10bpFoAeQt+/BBUkWnP3HRg42TUuT8hUwVx91PRcy+ZB6LXbF79Nzu4bcoQA8ac
-8B1uFCdK6zr8LrFvuGL6z4nIrZLoUW+BRZdCGCtISTcMQy2FrExV4Y/e/BS/1Neb
-MiCLAoGAGb9eNHdOm3vAFENofWgQ04VxcgHAg/xWmqRbTQR7L/6M7UD6JCcztbBn
-B3B8HIldts3yp61wjVR7giDZxnlL4DDfSs726ChJ66L58l3FEAQUqFHjc3Hkg6tL
-T7U+rEyXWQXY4SWfvcSc/Dzu1LNMCRYuryCjq/9MlweQC8RyzVw=
------END RSA PRIVATE KEY-----
+4. The path to client_secrets.json had to be specified else the file was not being found.
+5.  The /etc/apache2/sites-enabled/000-default.conf was updated to call /var/www/html/myapp.wsgi for port 80.
+6. The /var/www/html/myapp.wsgi file was updated to call catalog.py from /var/www/html/Catalog1.
+7. Changes were made to the UFW and SSH settings on the Lightsail portal per the project details at:
+https://classroom.udacity.com/nanodegrees/nd004/parts/00413454014/modules/357367901175462/lessons/3573679011239847/concepts/ce268cfe-99ec-49be-9326-876375f89a22
 
+TinyURL for the above is:  https://tinyurl.com/y9z25kn2
 
+8. Two users with different privilege levels were defined in postgres sql.  The first user ('king') had all privileges, allowing this user to create the database and the tables.  The second user ('catalog') had update privileges only, this user was used in the catalog.py code to ensure any malacious side effects from the web application would have limited damage.
+Updates were made on the Google Cloud Portal (API/Credentials/Client id for web client) to authorize the code running on this lighsail ubuntu instance.  This included allowing http://54.236.38.136 as an Authorized Javascript origin and http://ec2-54-236-38-136.compute-1.amazonaws.com/oauth2callback as an Authorized redirect URI.  This hostname corresponded to the ip address of the same vm.
+
+List of 3rd Party Resources used:
+
+1) 
 
 
 *********************** OLD INFO BELOW ON RUNNING SAME APP IN VAGARANT *********************************
