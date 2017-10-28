@@ -35,7 +35,8 @@ https://classroom.udacity.com/nanodegrees/nd004/parts/00413454014/modules/357367
 TinyURL for the above is:  https://tinyurl.com/y9z25kn2
 
 8. Two users with different privilege levels were defined in postgres sql.  The first user ('king') had all privileges, allowing this user to create the database and the tables.  The second user ('catalog') had update privileges only, this user was used in the catalog.py code to ensure any malacious side effects from the web application would have limited damage.
-Updates were made on the Google Cloud Portal (API/Credentials/Client id for web client) to authorize the code running on this lighsail ubuntu instance.  This included allowing http://54.236.38.136 as an Authorized Javascript origin and http://ec2-54-236-38-136.compute-1.amazonaws.com/oauth2callback as an Authorized redirect URI.  This hostname corresponded to the ip address of the same vm.
+
+9. Updates were made on the Google Cloud Portal (API/Credentials/Client id for web client) to authorize the code running on this lighsail ubuntu instance.  This included allowing http://54.236.38.136 as an Authorized Javascript origin and http://ec2-54-236-38-136.compute-1.amazonaws.com/oauth2callback as an Authorized redirect URI.  This hostname corresponded to the ip address of the same vm.
 
 List of 3rd Party Resources used:
 
