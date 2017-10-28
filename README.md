@@ -39,7 +39,13 @@ Updates were made on the Google Cloud Portal (API/Credentials/Client id for web 
 
 List of 3rd Party Resources used:
 
-1) 
+1) SQLAlchemy
+2) Python Flask 
+3) Python functools.wraps
+4) Python Requests LIbrary
+5) Python httplib2
+6) Python oauth2client
+
 
 
 *********************** OLD INFO BELOW ON RUNNING SAME APP IN VAGARANT *********************************
